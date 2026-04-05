@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Biblical Textures — Asset Gallery</title>
+  <link rel="stylesheet" href="textures.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Crimson Text', Georgia, serif;
+      background: #1a1408;
+      color: #e0d4c0;
+      min-height: 100vh;
+      padding: 32px 24px;
+    }
+
+    .page-header {
+      max-width: 1100px;
+      margin: 0 auto 32px;
+    }
+    .page-header h1 {
+      font-family: 'Cinzel', Georgia, serif;
+      font-size: 1.6rem;
+      color: #c9a96e;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin: 0 0 6px;
+    }
+    .page-header p {
+      color: #8a7a62;
+      font-size: 0.95rem;
+      margin: 0;
+      font-style: italic;
+    }
+    .page-header a {
+      color: #c9a96e;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(201,169,110,0.3);
+    }
+    .page-header a:hover { border-bottom-color: #c9a96e; }
+
+    /* ── Section ── */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto 40px;
+    }
+    .section-title {
+      font-family: 'Cinzel', Georgia, serif;
+      font-size: 0.85rem;
+      color: #b8a080;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin: 0 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(166,138,90,0.25);
+    }
+
+    /* ── Grid ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    /* ── Texture card ── */
+    .tex-card {
+      position: relative;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid rgba(140,115,75,0.4);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .tex-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+
+    .tex-swatch {
+      height: 140px;
+      position: relative;
+    }
+
+    .tex-info {
+      background: rgba(30, 24, 15, 0.95);
+      padding: 10px 12px;
+      border-top: 1px solid rgba(140,115,75,0.25);
+    }
+    .tex-name {
+      font-family: 'Cinzel', Georgia, serif;
+      font-size: 0.75rem;
+      color: #d4b478;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin: 0 0 4px;
+    }
+    .tex-desc {
+      font-size: 0.8rem;
+      color: #8a7a62;
+      margin: 0;
+      line-height: 1.4;
+    }
+    .tex-class {
+      font-family: 'Courier New', monospace;
+      font-size: 0.7rem;
+      color: #6b8a5e;
+      margin-top: 4px;
+      display: block;
+    }
+
+    /* ── Large showcase panels ── */
+    .showcase {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .showcase-panel {
+      position: relative;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid rgba(140,115,75,0.4);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+    .showcase-swatch {
+      height: 200px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── SVG Asset previews ── */
+    .asset-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+    }
+    .asset-card {
+      background: rgba(30, 24, 15, 0.9);
+      border: 1px solid rgba(140,115,75,0.35);
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+      transition: transform 0.2s ease;
+    }
+    .asset-card:hover { transform: translateY(-2px); }
+    .asset-preview {
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(42, 33, 22, 0.5);
+      padding: 16px;
+    }
+    .asset-preview svg {
+      max-width: 100%;
+      max-height: 100%;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+    }
+    .asset-info {
+      padding: 10px 12px;
+      border-top: 1px solid rgba(140,115,75,0.2);
+    }
+    .asset-name {
+      font-family: 'Cinzel', Georgia, serif;
+      font-size: 0.75rem;
+      color: #d4b478;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin: 0 0 3px;
+    }
+    .asset-desc {
+      font-size: 0.78rem;
+      color: #8a7a62;
+      margin: 0;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      max-width: 1100px;
+      margin: 48px auto 0;
+      padding-top: 16px;
+      border-top: 1px solid rgba(140,115,75,0.2);
+      font-size: 0.8rem;
+      color: #6b5e48;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Biblical Textures &amp; Assets</h1>
+  <p>CSS-only procedural textures and SVG assets for <a href="index.html">The Narrow Way — Panel World</a></p>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TEXTURES — Surface Materials
+     ═══════════════════════════════════════════ -->
+
+<div class="section">
+  <div class="section-title">Surface Materials</div>
+  <div class="grid" id="texture-grid"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SHOWCASE — Large Composition Panels
+     ═══════════════════════════════════════════ -->
+
+<div class="section">
+  <div class="section-title">Composition Showcase</div>
+  <div class="showcase">
+    <div class="showcase-panel">
+      <div class="showcase-swatch tex-stone-masonry tex-overlay-grain tex-overlay-vignette" style="position:relative;">
+        <div style="text-align:center;z-index:1;padding:20px;">
+          <div style="font-family:'Cinzel',serif;font-size:1.1rem;color:#d4b478;letter-spacing:0.12em;text-transform:uppercase;text-shadow:0 2px 6px rgba(0,0,0,0.8);">Stone Wall</div>
+          <div style="font-size:0.85rem;color:#b8a080;margin-top:6px;text-shadow:0 1px 4px rgba(0,0,0,0.7);">Masonry + grain overlay + vignette</div>
+        </div>
+      </div>
+    </div>
+    <div class="showcase-panel">
+      <div class="showcase-swatch tex-parchment tex-overlay-vignette" style="position:relative;">
+        <div style="text-align:center;z-index:1;padding:20px;">
+          <div style="font-family:'Cinzel',serif;font-size:1.1rem;color:#5a4832;letter-spacing:0.12em;text-transform:uppercase;">Torah Scroll</div>
+          <div style="font-size:0.85rem;color:#6b5e48;margin-top:6px;">Parchment + vignette overlay</div>
+        </div>
+      </div>
+    </div>
+    <div class="showcase-panel">
+      <div class="showcase-swatch tex-cracked-earth tex-overlay-grain tex-overlay-vignette" style="position:relative;">
+        <div style="text-align:center;z-index:1;padding:20px;">
+          <div style="font-family:'Cinzel',serif;font-size:1.1rem;color:#d4b478;letter-spacing:0.12em;text-transform:uppercase;text-shadow:0 2px 6px rgba(0,0,0,0.8);">Desert Floor</div>
+          <div style="font-size:0.85rem;color:#b8a080;margin-top:6px;text-shadow:0 1px 4px rgba(0,0,0,0.7);">Cracked earth + grain + vignette</div>
+        </div>
+      </div>
+    </div>
+    <div class="showcase-panel">
+      <div class="showcase-swatch tex-cedar tex-overlay-vignette" style="position:relative;">
+        <div style="text-align:center;z-index:1;padding:20px;">
+          <div style="font-family:'Cinzel',serif;font-size:1.1rem;color:#d4b478;letter-spacing:0.12em;text-transform:uppercase;text-shadow:0 2px 6px rgba(0,0,0,0.8);">Cedar Beam</div>
+          <div style="font-size:0.85rem;color:#b8a080;margin-top:6px;text-shadow:0 1px 4px rgba(0,0,0,0.7);">Rough cedar + vignette</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SVG ASSETS — Inline vector objects
+     ═══════════════════════════════════════════ -->
+
+<div class="section">
+  <div class="section-title">SVG Assets — Objects &amp; Props</div>
+  <div class="asset-grid" id="asset-grid"></div>
+</div>
+
+<div class="section">
+  <div class="section-title">SVG Assets — Environment &amp; Characters</div>
+  <div class="asset-grid" id="env-grid"></div>
+</div>
+
+<div class="footer">
+  All textures are CSS-only (gradients + inline SVG filters). All assets are inline SVG. No external images required.
+</div>
+
+<script>
+  // ── Texture definitions ──
+  const textures = [
+    { cls: "tex-sandstone",     name: "Sandstone",       desc: "Warm granular Jerusalem stone" },
+    { cls: "tex-cedar",         name: "Rough Cedar",     desc: "Vertical grain, temple wood" },
+    { cls: "tex-parchment",     name: "Parchment",       desc: "Aged scroll / writing surface" },
+    { cls: "tex-burlap",        name: "Burlap",          desc: "Woven sackcloth fabric" },
+    { cls: "tex-bronze",        name: "Hammered Bronze",     desc: "Dented temple metalwork" },
+    { cls: "tex-clay",          name: "Clay / Pottery",  desc: "Terracotta vessel surface" },
+    { cls: "tex-cracked-earth", name: "Cracked Earth",   desc: "Dry desert / wilderness floor" },
+    { cls: "tex-stone-masonry", name: "Stone Masonry",   desc: "Stacked block wall pattern" },
+    { cls: "tex-leather",       name: "Leather",         desc: "Worn hide, dark creases" },
+    { cls: "tex-iron",          name: "Iron",            desc: "Forged dark metal, nails" },
+    { cls: "tex-linen",         name: "Linen",           desc: "Light woven burial cloth" },
+    { cls: "tex-cobblestone",   name: "Cobblestone",     desc: "Rounded street stones" },
+    { cls: "tex-olive-wood",    name: "Olive Wood",      desc: "Knotted Gethsemane grain" },
+    { cls: "tex-terracotta",    name: "Terracotta Tile", desc: "Fired red clay blocks" },
+    { cls: "tex-dark-earth",    name: "Dark Earth",      desc: "Rich garden soil" },
+    { cls: "tex-plaster",       name: "Rough Plaster",   desc: "Whitewashed house wall" },
+    { cls: "tex-mosaic",        name: "Mosaic Tile",     desc: "Decorative floor pattern" },
+    { cls: "tex-aged-gold",     name: "Aged Gold",       desc: "Tarnished gilded surface" }
+  ];
+
+  const grid = document.getElementById("texture-grid");
+  textures.forEach(t => {
+    grid.innerHTML += `
+      <div class="tex-card">
+        <div class="tex-swatch ${t.cls}"></div>
+        <div class="tex-info">
+          <div class="tex-name">${t.name}</div>
+          <div class="tex-desc">${t.desc}</div>
+          <span class="tex-class">.${t.cls}</span>
+        </div>
+      </div>
+    `;
+  });
+
+  // ── SVG Asset definitions ──
+  const assets = [
+    {
+      name: "Stone Arch",
+      desc: "Gate / narrow way entrance",
+      svg: `<svg viewBox="0 0 200 160" width="160" height="128">
+        <defs>
+          <linearGradient id="stoneG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#c4a872"/>
+            <stop offset="100%" stop-color="#8a7560"/>
+          </linearGradient>
+        </defs>
+        <rect x="10" y="90" width="35" height="70" rx="2" fill="url(#stoneG)" stroke="#6b5e48" stroke-width="1.5"/>
+        <rect x="155" y="90" width="35" height="70" rx="2" fill="url(#stoneG)" stroke="#6b5e48" stroke-width="1.5"/>
+        <path d="M10 90 Q100 -10 190 90" fill="url(#stoneG)" stroke="#6b5e48" stroke-width="2"/>
+        <path d="M45 90 Q100 20 155 90" fill="#1a1408" stroke="#6b5e48" stroke-width="1.5"/>
+        <!-- keystone -->
+        <path d="M92 18 L108 18 L105 38 L95 38 Z" fill="#b8a070" stroke="#6b5e48" stroke-width="1"/>
+        <!-- block lines -->
+        <line x1="15" y1="110" x2="42" y2="110" stroke="#6b5e48" stroke-width="0.8"/>
+        <line x1="15" y1="130" x2="42" y2="130" stroke="#6b5e48" stroke-width="0.8"/>
+        <line x1="158" y1="110" x2="187" y2="110" stroke="#6b5e48" stroke-width="0.8"/>
+        <line x1="158" y1="130" x2="187" y2="130" stroke="#6b5e48" stroke-width="0.8"/>
+      </svg>`
+    },
+    {
+      name: "Clay Jar",
+      desc: "Water vessel / pottery",
+      svg: `<svg viewBox="0 0 100 140" width="80" height="112">
+        <defs>
+          <radialGradient id="clayG" cx="40%" cy="40%">
+            <stop offset="0%" stop-color="#c47a4a"/>
+            <stop offset="100%" stop-color="#8a4e28"/>
+          </radialGradient>
+        </defs>
+        <!-- body -->
+        <ellipse cx="50" cy="90" rx="32" ry="38" fill="url(#clayG)" stroke="#6b3a1a" stroke-width="1.5"/>
+        <!-- neck -->
+        <rect x="40" y="42" width="20" height="18" rx="2" fill="#b06a3a" stroke="#6b3a1a" stroke-width="1"/>
+        <!-- rim -->
+        <ellipse cx="50" cy="42" rx="14" ry="5" fill="#c47a4a" stroke="#6b3a1a" stroke-width="1.2"/>
+        <!-- opening -->
+        <ellipse cx="50" cy="42" rx="9" ry="3" fill="#3a2010"/>
+        <!-- handle -->
+        <path d="M72 60 Q90 75 75 95" fill="none" stroke="#8a4e28" stroke-width="5" stroke-linecap="round"/>
+        <path d="M72 60 Q90 75 75 95" fill="none" stroke="#6b3a1a" stroke-width="1.5"/>
+        <!-- band decoration -->
+        <ellipse cx="50" cy="80" rx="30" ry="5" fill="none" stroke="#6b3a1a" stroke-width="0.8" stroke-dasharray="4,3"/>
+        <!-- base -->
+        <ellipse cx="50" cy="126" rx="16" ry="4" fill="#7a4528" stroke="#6b3a1a" stroke-width="1"/>
+      </svg>`
+    },
+    {
+      name: "Scroll",
+      desc: "Torah / scripture roll",
+      svg: `<svg viewBox="0 0 200 120" width="160" height="96">
+        <defs>
+          <linearGradient id="parchG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#e8dcc0"/>
+            <stop offset="50%" stop-color="#d4c4a0"/>
+            <stop offset="100%" stop-color="#c8b890"/>
+          </linearGradient>
+          <linearGradient id="rodG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#8a6e42"/>
+            <stop offset="100%" stop-color="#5a4528"/>
+          </linearGradient>
+        </defs>
+        <!-- parchment body -->
+        <rect x="30" y="15" width="140" height="90" rx="2" fill="url(#parchG)" stroke="#a08a60" stroke-width="1"/>
+        <!-- text lines -->
+        <g stroke="#8a7a62" stroke-width="0.6" opacity="0.5">
+          <line x1="42" y1="30" x2="158" y2="30"/>
+          <line x1="42" y1="40" x2="155" y2="40"/>
+          <line x1="42" y1="50" x2="150" y2="50"/>
+          <line x1="42" y1="60" x2="158" y2="60"/>
+          <line x1="42" y1="70" x2="148" y2="70"/>
+          <line x1="42" y1="80" x2="155" y2="80"/>
+          <line x1="42" y1="90" x2="130" y2="90"/>
+        </g>
+        <!-- left rod -->
+        <rect x="22" y="8" width="14" height="104" rx="7" fill="url(#rodG)" stroke="#4a3520" stroke-width="1"/>
+        <circle cx="29" cy="10" r="5" fill="#7a5e38" stroke="#4a3520" stroke-width="1"/>
+        <circle cx="29" cy="110" r="5" fill="#7a5e38" stroke="#4a3520" stroke-width="1"/>
+        <!-- right rod -->
+        <rect x="164" y="8" width="14" height="104" rx="7" fill="url(#rodG)" stroke="#4a3520" stroke-width="1"/>
+        <circle cx="171" cy="10" r="5" fill="#7a5e38" stroke="#4a3520" stroke-width="1"/>
+        <circle cx="171" cy="110" r="5" fill="#7a5e38" stroke="#4a3520" stroke-width="1"/>
+      </svg>`
+    },
+    {
+      name: "Oil Lamp",
+      desc: "Clay lamp with flame",
+      svg: `<svg viewBox="0 0 120 100" width="96" height="80">
+        <defs>
+          <radialGradient id="flameG" cx="50%" cy="80%">
+            <stop offset="0%" stop-color="#ffe080"/>
+            <stop offset="50%" stop-color="#f0a030"/>
+            <stop offset="100%" stop-color="#c06010" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <!-- flame glow -->
+        <ellipse cx="85" cy="28" rx="14" ry="18" fill="#ffe080" opacity="0.15"/>
+        <!-- flame -->
+        <path d="M85 42 Q80 30 85 15 Q88 25 92 18 Q90 32 85 42Z" fill="url(#flameG)"/>
+        <!-- lamp body -->
+        <ellipse cx="55" cy="65" rx="35" ry="22" fill="#b06a3a" stroke="#6b3a1a" stroke-width="1.5"/>
+        <!-- spout -->
+        <path d="M85 58 L100 50 L100 55 L88 62" fill="#a05e30" stroke="#6b3a1a" stroke-width="1"/>
+        <!-- wick hole -->
+        <ellipse cx="92" cy="54" rx="3" ry="2" fill="#3a2010"/>
+        <!-- fill hole -->
+        <ellipse cx="50" cy="58" rx="8" ry="4" fill="#8a4e28" stroke="#6b3a1a" stroke-width="0.8"/>
+        <ellipse cx="50" cy="58" rx="5" ry="2.5" fill="#3a2010"/>
+        <!-- handle -->
+        <path d="M25 55 Q10 50 18 65" fill="none" stroke="#8a4e28" stroke-width="4" stroke-linecap="round"/>
+        <path d="M25 55 Q10 50 18 65" fill="none" stroke="#6b3a1a" stroke-width="1.2"/>
+        <!-- base -->
+        <ellipse cx="55" cy="82" rx="18" ry="5" fill="#7a4528" stroke="#6b3a1a" stroke-width="0.8"/>
+      </svg>`
+    },
+    {
+      name: "Wooden Cross",
+      desc: "Rough-hewn timber cross",
+      svg: `<svg viewBox="0 0 100 150" width="80" height="120">
+        <defs>
+          <linearGradient id="woodCG" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#6b5535"/>
+            <stop offset="50%" stop-color="#7a6040"/>
+            <stop offset="100%" stop-color="#5a4528"/>
+          </linearGradient>
+        </defs>
+        <!-- vertical beam -->
+        <rect x="42" y="5" width="16" height="140" rx="2" fill="url(#woodCG)" stroke="#4a3820" stroke-width="1.5"/>
+        <!-- horizontal beam -->
+        <rect x="10" y="35" width="80" height="14" rx="2" fill="url(#woodCG)" stroke="#4a3820" stroke-width="1.5"/>
+        <!-- wood grain -->
+        <line x1="46" y1="8" x2="46" y2="142" stroke="#5a4528" stroke-width="0.5" opacity="0.4"/>
+        <line x1="52" y1="8" x2="52" y2="142" stroke="#5a4528" stroke-width="0.5" opacity="0.3"/>
+        <line x1="14" y1="41" x2="86" y2="41" stroke="#5a4528" stroke-width="0.5" opacity="0.4"/>
+        <!-- nail marks -->
+        <circle cx="25" cy="42" r="2" fill="#3a2818"/>
+        <circle cx="75" cy="42" r="2" fill="#3a2818"/>
+        <circle cx="50" cy="120" r="2" fill="#3a2818"/>
+        <!-- sign -->
+        <rect x="35" y="15" width="30" height="14" rx="1" fill="#c8b890" stroke="#8a7a60" stroke-width="0.8"/>
+        <line x1="40" y1="20" x2="60" y2="20" stroke="#6b5e48" stroke-width="0.6"/>
+        <line x1="42" y1="24" x2="58" y2="24" stroke="#6b5e48" stroke-width="0.6"/>
+      </svg>`
+    },
+    {
+      name: "Fishing Net",
+      desc: "Galilee fisherman's net",
+      svg: `<svg viewBox="0 0 140 100" width="112" height="80">
+        <defs>
+          <linearGradient id="netRopeG" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#a08a60"/>
+            <stop offset="100%" stop-color="#7a6a48"/>
+          </linearGradient>
+        </defs>
+        <!-- net mesh -->
+        <g stroke="#8a7a5a" stroke-width="0.8" fill="none" opacity="0.7">
+          <path d="M20 10 L35 30 L50 10 L65 30 L80 10 L95 30 L110 10 L120 25"/>
+          <path d="M25 20 L40 42 L55 22 L70 42 L85 22 L100 42 L115 20"/>
+          <path d="M30 35 L45 55 L60 35 L75 55 L90 35 L105 55"/>
+          <path d="M35 50 L50 70 L65 50 L80 70 L95 50"/>
+          <path d="M42 65 L57 82 L72 65 L87 82"/>
+          <path d="M50 78 L65 92 L80 78"/>
+        </g>
+        <!-- top rope -->
+        <path d="M10 8 Q70 -5 130 8" fill="none" stroke="url(#netRopeG)" stroke-width="3" stroke-linecap="round"/>
+        <!-- weights -->
+        <circle cx="45" cy="88" r="4" fill="#6b6058" stroke="#4a4038" stroke-width="1"/>
+        <circle cx="65" cy="95" r="4" fill="#6b6058" stroke="#4a4038" stroke-width="1"/>
+        <circle cx="85" cy="88" r="4" fill="#6b6058" stroke="#4a4038" stroke-width="1"/>
+      </svg>`
+    },
+    {
+      name: "Shepherd's Staff",
+      desc: "Curved crook rod",
+      svg: `<svg viewBox="0 0 60 160" width="48" height="128">
+        <defs>
+          <linearGradient id="staffG" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#7a5e38"/>
+            <stop offset="50%" stop-color="#8a6e48"/>
+            <stop offset="100%" stop-color="#6b5030"/>
+          </linearGradient>
+        </defs>
+        <!-- shaft -->
+        <rect x="26" y="40" width="8" height="115" rx="4" fill="url(#staffG)" stroke="#4a3520" stroke-width="1"/>
+        <!-- crook -->
+        <path d="M30 40 Q30 8 48 8 Q58 8 55 22 Q52 32 42 35" fill="none" stroke="url(#staffG)" stroke-width="8" stroke-linecap="round"/>
+        <path d="M30 40 Q30 8 48 8 Q58 8 55 22 Q52 32 42 35" fill="none" stroke="#4a3520" stroke-width="1.5"/>
+        <!-- wood grain -->
+        <line x1="29" y1="50" x2="29" y2="150" stroke="#5a4528" stroke-width="0.4" opacity="0.4"/>
+        <!-- tip -->
+        <rect x="24" y="148" width="12" height="6" rx="2" fill="#5a4020" stroke="#4a3520" stroke-width="0.8"/>
+      </svg>`
+    },
+    {
+      name: "Denarius Coin",
+      desc: "Roman currency",
+      svg: `<svg viewBox="0 0 100 100" width="80" height="80">
+        <defs>
+          <radialGradient id="coinG" cx="35%" cy="35%">
+            <stop offset="0%" stop-color="#c8a850"/>
+            <stop offset="60%" stop-color="#a08830"/>
+            <stop offset="100%" stop-color="#786420"/>
+          </radialGradient>
+        </defs>
+        <!-- coin body -->
+        <circle cx="50" cy="52" r="38" fill="url(#coinG)" stroke="#6b5820" stroke-width="2"/>
+        <!-- inner ring -->
+        <circle cx="50" cy="52" r="32" fill="none" stroke="#8a7428" stroke-width="1"/>
+        <!-- profile (simplified) -->
+        <path d="M42 35 Q44 28 50 26 Q56 28 55 35 L56 42 Q58 48 54 52 L52 58 Q50 62 46 60 L44 55 Q40 50 42 44 Z" fill="none" stroke="#7a6825" stroke-width="1.2"/>
+        <!-- text suggestion -->
+        <path d="M28 72 Q50 80 72 72" fill="none" stroke="#7a6825" stroke-width="0.8"/>
+        <path d="M32 32 Q50 24 68 32" fill="none" stroke="#7a6825" stroke-width="0.8"/>
+        <!-- edge -->
+        <circle cx="50" cy="52" r="38" fill="none" stroke="#9a8838" stroke-width="0.5" stroke-dasharray="2,2"/>
+      </svg>`
+    },
+    {
+      name: "Stone Tablet",
+      desc: "Commandment / inscription slab",
+      svg: `<svg viewBox="0 0 100 130" width="80" height="104">
+        <defs>
+          <linearGradient id="tabletG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#b0a088"/>
+            <stop offset="100%" stop-color="#8a7a60"/>
+          </linearGradient>
+        </defs>
+        <!-- tablet shape (rounded top) -->
+        <path d="M15 40 Q15 10 50 10 Q85 10 85 40 L85 125 L15 125 Z" fill="url(#tabletG)" stroke="#6b5e48" stroke-width="2"/>
+        <!-- carved text lines -->
+        <g stroke="#5a4e3a" stroke-width="1" opacity="0.6">
+          <line x1="28" y1="35" x2="72" y2="35"/>
+          <line x1="28" y1="48" x2="70" y2="48"/>
+          <line x1="28" y1="61" x2="68" y2="61"/>
+          <line x1="28" y1="74" x2="72" y2="74"/>
+          <line x1="28" y1="87" x2="65" y2="87"/>
+          <line x1="28" y1="100" x2="70" y2="100"/>
+          <line x1="28" y1="113" x2="55" y2="113"/>
+        </g>
+        <!-- crack -->
+        <path d="M62 10 L60 25 L65 40 L58 55" fill="none" stroke="#5a4e3a" stroke-width="0.6" opacity="0.4"/>
+      </svg>`
+    },
+    {
+      name: "Olive Tree",
+      desc: "Gethsemane / garden of prayer",
+      svg: `<svg viewBox="0 0 140 160" width="112" height="128">
+        <defs>
+          <radialGradient id="foliageG" cx="50%" cy="45%">
+            <stop offset="0%" stop-color="#6a7a48"/>
+            <stop offset="100%" stop-color="#4a5a30"/>
+          </radialGradient>
+        </defs>
+        <!-- trunk -->
+        <path d="M65 95 Q60 110 55 130 Q52 145 48 155 L58 155 Q62 140 65 130" fill="#7a5e38" stroke="#4a3520" stroke-width="1.2"/>
+        <path d="M75 95 Q78 115 82 135 Q85 148 88 155 L78 155 Q76 140 75 130" fill="#7a5e38" stroke="#4a3520" stroke-width="1.2"/>
+        <!-- trunk connector -->
+        <path d="M60 95 Q70 85 80 95" fill="#7a5e38" stroke="#4a3520" stroke-width="1"/>
+        <!-- canopy clusters -->
+        <ellipse cx="45" cy="55" rx="25" ry="20" fill="url(#foliageG)" stroke="#3a4a25" stroke-width="1"/>
+        <ellipse cx="80" cy="45" rx="28" ry="22" fill="url(#foliageG)" stroke="#3a4a25" stroke-width="1"/>
+        <ellipse cx="100" cy="65" rx="22" ry="18" fill="url(#foliageG)" stroke="#3a4a25" stroke-width="1"/>
+        <ellipse cx="60" cy="35" rx="24" ry="18" fill="url(#foliageG)" stroke="#3a4a25" stroke-width="1"/>
+        <ellipse cx="35" cy="70" rx="20" ry="16" fill="url(#foliageG)" stroke="#3a4a25" stroke-width="1"/>
+        <!-- highlight leaves -->
+        <ellipse cx="70" cy="30" rx="18" ry="12" fill="#7a8a52" opacity="0.5"/>
+        <!-- ground -->
+        <ellipse cx="70" cy="157" rx="40" ry="4" fill="#8a7a60" opacity="0.3"/>
+      </svg>`
+    },
+    {
+      name: "Palm Tree",
+      desc: "Date palm / oasis tree",
+      svg: `<svg viewBox="0 0 100 160" width="80" height="128">
+        <defs>
+          <linearGradient id="palmTrunkG" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#7a5e38"/>
+            <stop offset="100%" stop-color="#6b5030"/>
+          </linearGradient>
+        </defs>
+        <!-- trunk -->
+        <path d="M48 60 Q46 90 44 120 Q42 140 40 155 L56 155 Q54 140 52 120 Q51 90 50 60" fill="url(#palmTrunkG)" stroke="#4a3520" stroke-width="1"/>
+        <!-- trunk rings -->
+        <g stroke="#5a4528" stroke-width="0.8" opacity="0.5">
+          <path d="M44 75 Q49 73 52 75"/><path d="M43 90 Q49 88 53 90"/>
+          <path d="M42 105 Q49 103 54 105"/><path d="M41 120 Q49 118 55 120"/>
+          <path d="M41 135 Q49 133 55 135"/>
+        </g>
+        <!-- fronds -->
+        <g fill="none" stroke="#5a7a30" stroke-width="2.5" stroke-linecap="round">
+          <path d="M50 55 Q30 20 5 15"/>
+          <path d="M50 55 Q25 35 8 40"/>
+          <path d="M50 55 Q70 20 95 15"/>
+          <path d="M50 55 Q75 35 92 40"/>
+          <path d="M50 55 Q50 25 45 5"/>
+          <path d="M50 55 Q55 30 60 8"/>
+          <path d="M50 55 Q35 45 15 55"/>
+          <path d="M50 55 Q65 45 85 55"/>
+        </g>
+        <!-- dates cluster -->
+        <g fill="#a06830">
+          <circle cx="46" cy="58" r="2.5"/><circle cx="52" cy="56" r="2.5"/>
+          <circle cx="44" cy="63" r="2.2"/><circle cx="54" cy="61" r="2.2"/>
+        </g>
+        <ellipse cx="48" cy="157" rx="25" ry="3" fill="#8a7a60" opacity="0.3"/>
+      </svg>`
+    },
+    {
+      name: "Stone House",
+      desc: "First-century dwelling",
+      svg: `<svg viewBox="0 0 160 120" width="128" height="96">
+        <defs>
+          <linearGradient id="houseWallG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#c8b890"/>
+            <stop offset="100%" stop-color="#a89870"/>
+          </linearGradient>
+        </defs>
+        <!-- main wall -->
+        <rect x="20" y="35" width="120" height="70" fill="url(#houseWallG)" stroke="#7a6a48" stroke-width="1.5"/>
+        <!-- flat roof with parapet -->
+        <rect x="15" y="28" width="130" height="10" fill="#b0a078" stroke="#7a6a48" stroke-width="1.2"/>
+        <!-- roof beams showing -->
+        <g stroke="#6b5535" stroke-width="1" opacity="0.4">
+          <line x1="40" y1="30" x2="40" y2="36"/><line x1="70" y1="30" x2="70" y2="36"/>
+          <line x1="100" y1="30" x2="100" y2="36"/><line x1="125" y1="30" x2="125" y2="36"/>
+        </g>
+        <!-- door -->
+        <rect x="60" y="60" width="22" height="45" rx="10" fill="#5a4528" stroke="#4a3820" stroke-width="1.5"/>
+        <circle cx="78" cy="82" r="2" fill="#8a7428"/>
+        <!-- windows -->
+        <rect x="30" y="52" width="16" height="14" rx="1" fill="#3a3020" stroke="#7a6a48" stroke-width="1"/>
+        <line x1="38" y1="52" x2="38" y2="66" stroke="#7a6a48" stroke-width="0.8"/>
+        <rect x="100" y="52" width="16" height="14" rx="1" fill="#3a3020" stroke="#7a6a48" stroke-width="1"/>
+        <line x1="108" y1="52" x2="108" y2="66" stroke="#7a6a48" stroke-width="0.8"/>
+        <!-- masonry lines -->
+        <g stroke="#8a7a58" stroke-width="0.5" opacity="0.35">
+          <line x1="22" y1="50" x2="140" y2="50"/>
+          <line x1="22" y1="70" x2="58" y2="70"/><line x1="84" y1="70" x2="140" y2="70"/>
+          <line x1="22" y1="90" x2="58" y2="90"/><line x1="84" y1="90" x2="140" y2="90"/>
+          <line x1="50" y1="35" x2="50" y2="50"/><line x1="90" y1="50" x2="90" y2="70"/>
+          <line x1="120" y1="35" x2="120" y2="50"/>
+        </g>
+        <!-- ground -->
+        <line x1="5" y1="105" x2="155" y2="105" stroke="#7a6a48" stroke-width="1" opacity="0.4"/>
+      </svg>`
+    },
+    {
+      name: "Woven Basket",
+      desc: "Reed basket for bread/fish",
+      svg: `<svg viewBox="0 0 100 80" width="80" height="64">
+        <defs>
+          <linearGradient id="basketG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#b09060"/>
+            <stop offset="100%" stop-color="#8a7048"/>
+          </linearGradient>
+        </defs>
+        <!-- basket body -->
+        <path d="M15 25 Q15 72 50 72 Q85 72 85 25" fill="url(#basketG)" stroke="#6b5535" stroke-width="1.5"/>
+        <!-- rim -->
+        <ellipse cx="50" cy="25" rx="36" ry="8" fill="#b8985a" stroke="#6b5535" stroke-width="1.5"/>
+        <ellipse cx="50" cy="25" rx="30" ry="5" fill="#a08850" stroke="#6b5535" stroke-width="0.8"/>
+        <!-- weave pattern -->
+        <g stroke="#7a6040" stroke-width="0.7" fill="none" opacity="0.5">
+          <path d="M20 35 Q50 30 80 35"/><path d="M18 45 Q50 40 82 45"/>
+          <path d="M20 55 Q50 50 80 55"/><path d="M25 65 Q50 60 75 65"/>
+          <line x1="30" y1="25" x2="25" y2="70"/><line x1="42" y1="23" x2="40" y2="72"/>
+          <line x1="58" y1="23" x2="60" y2="72"/><line x1="70" y1="25" x2="75" y2="70"/>
+        </g>
+      </svg>`
+    },
+    {
+      name: "Temple Facade",
+      desc: "Jerusalem temple front",
+      svg: `<svg viewBox="0 0 180 140" width="144" height="112">
+        <defs>
+          <linearGradient id="templeG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#e0d4b8"/>
+            <stop offset="100%" stop-color="#c4b494"/>
+          </linearGradient>
+        </defs>
+        <!-- base platform -->
+        <rect x="10" y="115" width="160" height="15" rx="1" fill="#b0a080" stroke="#8a7a58" stroke-width="1.5"/>
+        <rect x="20" y="108" width="140" height="10" rx="1" fill="#c4b494" stroke="#8a7a58" stroke-width="1"/>
+        <!-- columns -->
+        <g fill="url(#templeG)" stroke="#8a7a58" stroke-width="1.2">
+          <rect x="35" y="45" width="10" height="65" rx="1"/>
+          <rect x="60" y="45" width="10" height="65" rx="1"/>
+          <rect x="110" y="45" width="10" height="65" rx="1"/>
+          <rect x="135" y="45" width="10" height="65" rx="1"/>
+        </g>
+        <!-- column capitals -->
+        <g fill="#d4c4a0" stroke="#8a7a58" stroke-width="0.8">
+          <rect x="32" y="42" width="16" height="5" rx="1"/>
+          <rect x="57" y="42" width="16" height="5" rx="1"/>
+          <rect x="107" y="42" width="16" height="5" rx="1"/>
+          <rect x="132" y="42" width="16" height="5" rx="1"/>
+        </g>
+        <!-- architrave -->
+        <rect x="25" y="35" width="130" height="9" fill="#c8b890" stroke="#8a7a58" stroke-width="1.2"/>
+        <!-- pediment (triangle) -->
+        <path d="M25 35 L90 8 L155 35 Z" fill="url(#templeG)" stroke="#8a7a58" stroke-width="1.5"/>
+        <!-- inner entrance -->
+        <rect x="75" y="60" width="30" height="50" rx="2" fill="#3a3020" stroke="#8a7a58" stroke-width="1"/>
+        <path d="M75 60 Q90 52 105 60" fill="url(#templeG)" stroke="#8a7a58" stroke-width="1"/>
+        <!-- menorah suggestion in pediment -->
+        <g stroke="#a09068" stroke-width="1" fill="none" opacity="0.5">
+          <path d="M85 28 L85 22 M80 28 Q80 20 85 18 M90 28 Q90 20 85 18 M77 28 Q76 18 85 15 M93 28 Q94 18 85 15"/>
+        </g>
+      </svg>`
+    },
+    {
+      name: "Character Portrait",
+      desc: "Disciple / figure frame",
+      svg: `<svg viewBox="0 0 100 120" width="80" height="96">
+        <defs>
+          <radialGradient id="skinG" cx="50%" cy="40%">
+            <stop offset="0%" stop-color="#c8a080"/>
+            <stop offset="100%" stop-color="#a08060"/>
+          </radialGradient>
+          <linearGradient id="robeG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#8a7a68"/>
+            <stop offset="100%" stop-color="#6b5e48"/>
+          </linearGradient>
+        </defs>
+        <!-- frame border -->
+        <rect x="5" y="5" width="90" height="110" rx="4" fill="none" stroke="#a08a60" stroke-width="2"/>
+        <rect x="8" y="8" width="84" height="104" rx="3" fill="#2a2218" stroke="#7a6a48" stroke-width="0.8"/>
+        <!-- shoulders / robe -->
+        <path d="M20 85 Q50 75 80 85 L85 112 L15 112 Z" fill="url(#robeG)" stroke="#5a4e3a" stroke-width="1"/>
+        <!-- neck -->
+        <rect x="44" y="62" width="12" height="14" rx="2" fill="url(#skinG)"/>
+        <!-- head -->
+        <ellipse cx="50" cy="50" rx="18" ry="22" fill="url(#skinG)" stroke="#8a6e48" stroke-width="0.8"/>
+        <!-- hair -->
+        <path d="M32 45 Q32 28 50 28 Q68 28 68 45 Q65 35 50 33 Q35 35 32 45" fill="#4a3520"/>
+        <!-- beard -->
+        <path d="M38 58 Q50 72 62 58 Q58 65 50 68 Q42 65 38 58" fill="#5a4028" opacity="0.7"/>
+        <!-- eyes -->
+        <ellipse cx="42" cy="48" rx="3" ry="2" fill="#2a1e12"/>
+        <ellipse cx="58" cy="48" rx="3" ry="2" fill="#2a1e12"/>
+        <!-- nose -->
+        <path d="M50 48 L48 55 L52 55" fill="none" stroke="#8a6e48" stroke-width="0.6"/>
+        <!-- robe neckline -->
+        <path d="M40 78 L50 85 L60 78" fill="none" stroke="#5a4e3a" stroke-width="0.8"/>
+      </svg>`
+    },
+    {
+      name: "Water Jug Set",
+      desc: "Cana / wedding vessels",
+      svg: `<svg viewBox="0 0 160 100" width="128" height="80">
+        <defs>
+          <radialGradient id="jugG" cx="40%" cy="40%">
+            <stop offset="0%" stop-color="#c0956a"/>
+            <stop offset="100%" stop-color="#8a5e35"/>
+          </radialGradient>
+        </defs>
+        <!-- large jug -->
+        <ellipse cx="40" cy="60" rx="25" ry="30" fill="url(#jugG)" stroke="#6b3a1a" stroke-width="1.2"/>
+        <rect x="32" y="22" width="16" height="14" rx="2" fill="#a07848" stroke="#6b3a1a" stroke-width="1"/>
+        <ellipse cx="40" cy="22" rx="12" ry="4" fill="#b08858" stroke="#6b3a1a" stroke-width="1"/>
+        <ellipse cx="40" cy="22" rx="7" ry="2.5" fill="#3a2010"/>
+        <!-- medium jug -->
+        <ellipse cx="95" cy="65" rx="20" ry="25" fill="url(#jugG)" stroke="#6b3a1a" stroke-width="1.2"/>
+        <rect x="89" y="32" width="12" height="12" rx="2" fill="#a07848" stroke="#6b3a1a" stroke-width="1"/>
+        <ellipse cx="95" cy="32" rx="9" ry="3.5" fill="#b08858" stroke="#6b3a1a" stroke-width="0.8"/>
+        <ellipse cx="95" cy="32" rx="5" ry="2" fill="#3a2010"/>
+        <!-- small jug -->
+        <ellipse cx="140" cy="72" rx="14" ry="18" fill="url(#jugG)" stroke="#6b3a1a" stroke-width="1"/>
+        <rect x="135" y="48" width="10" height="8" rx="1.5" fill="#a07848" stroke="#6b3a1a" stroke-width="0.8"/>
+        <ellipse cx="140" cy="48" rx="7" ry="2.5" fill="#b08858" stroke="#6b3a1a" stroke-width="0.8"/>
+        <!-- handles -->
+        <path d="M60 40 Q72 50 62 65" fill="none" stroke="#8a5e35" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M111 42 Q120 50 113 60" fill="none" stroke="#8a5e35" stroke-width="3" stroke-linecap="round"/>
+        <!-- decorative bands -->
+        <ellipse cx="40" cy="55" rx="23" ry="4" fill="none" stroke="#6b3a1a" stroke-width="0.6" stroke-dasharray="3,2" opacity="0.5"/>
+        <ellipse cx="95" cy="60" rx="18" ry="3" fill="none" stroke="#6b3a1a" stroke-width="0.6" stroke-dasharray="3,2" opacity="0.5"/>
+      </svg>`
+    },
+    {
+      name: "Workbench",
+      desc: "Carpenter's table with tools",
+      svg: `<svg viewBox="0 0 160 110" width="128" height="88">
+        <defs>
+          <linearGradient id="benchG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#8a6e42"/>
+            <stop offset="100%" stop-color="#6b5535"/>
+          </linearGradient>
+        </defs>
+        <!-- tabletop -->
+        <rect x="15" y="35" width="130" height="10" rx="1" fill="url(#benchG)" stroke="#4a3820" stroke-width="1.5"/>
+        <!-- legs -->
+        <rect x="22" y="45" width="8" height="55" rx="1" fill="#6b5535" stroke="#4a3820" stroke-width="1"/>
+        <rect x="130" y="45" width="8" height="55" rx="1" fill="#6b5535" stroke="#4a3820" stroke-width="1"/>
+        <!-- cross brace -->
+        <line x1="30" y1="75" x2="134" y2="75" stroke="#5a4528" stroke-width="4"/>
+        <line x1="30" y1="75" x2="134" y2="75" stroke="#4a3820" stroke-width="1"/>
+        <!-- plank on top -->
+        <rect x="35" y="25" width="50" height="10" rx="1" fill="#a08858" stroke="#6b5535" stroke-width="0.8"/>
+        <!-- saw -->
+        <rect x="95" y="10" width="2" height="28" fill="#7a6040" stroke="#4a3520" stroke-width="0.5"/>
+        <path d="M97 15 L115 15 L115 28 L97 28" fill="#8a8a90" stroke="#5a5a62" stroke-width="0.8"/>
+        <line x1="97" y1="18" x2="113" y2="21" stroke="#6a6a72" stroke-width="0.5"/>
+        <!-- mallet -->
+        <rect x="125" y="22" width="3" height="20" rx="1" fill="#7a5e38" stroke="#4a3520" stroke-width="0.5"/>
+        <rect x="120" y="18" width="14" height="8" rx="2" fill="#6b5535" stroke="#4a3520" stroke-width="0.8"/>
+      </svg>`
+    },
+    {
+      name: "Bread Loaf",
+      desc: "Round flatbread",
+      svg: `<svg viewBox="0 0 100 70" width="80" height="56">
+        <defs>
+          <radialGradient id="breadG" cx="45%" cy="35%">
+            <stop offset="0%" stop-color="#c8a060"/>
+            <stop offset="70%" stop-color="#a07838"/>
+            <stop offset="100%" stop-color="#7a5828"/>
+          </radialGradient>
+        </defs>
+        <!-- loaf -->
+        <ellipse cx="50" cy="45" rx="40" ry="20" fill="url(#breadG)" stroke="#6b4e28" stroke-width="1.2"/>
+        <!-- top dome -->
+        <ellipse cx="50" cy="38" rx="35" ry="18" fill="url(#breadG)" stroke="#6b4e28" stroke-width="1"/>
+        <!-- score marks -->
+        <path d="M30 32 Q50 28 70 32" fill="none" stroke="#8a6838" stroke-width="0.8"/>
+        <path d="M35 40 Q50 36 65 40" fill="none" stroke="#8a6838" stroke-width="0.6"/>
+        <!-- crust spots -->
+        <circle cx="40" cy="34" r="1.5" fill="#8a6838" opacity="0.3"/>
+        <circle cx="58" cy="36" r="1" fill="#8a6838" opacity="0.3"/>
+        <circle cx="48" cy="30" r="1.2" fill="#8a6838" opacity="0.25"/>
+      </svg>`
+    }
+  ];
+
+  // Split assets: first 10 are objects, rest are environment/characters
+  const objectAssets = assets.slice(0, 10);
+  const envAssets = assets.slice(10);
+
+  const assetGrid = document.getElementById("asset-grid");
+  objectAssets.forEach(a => {
+    assetGrid.innerHTML += `
+      <div class="asset-card">
+        <div class="asset-preview">${a.svg}</div>
+        <div class="asset-info">
+          <div class="asset-name">${a.name}</div>
+          <div class="asset-desc">${a.desc}</div>
+        </div>
+      </div>
+    `;
+  });
+
+  const envGrid = document.getElementById("env-grid");
+  envAssets.forEach(a => {
+    envGrid.innerHTML += `
+      <div class="asset-card">
+        <div class="asset-preview">${a.svg}</div>
+        <div class="asset-info">
+          <div class="asset-name">${a.name}</div>
+          <div class="asset-desc">${a.desc}</div>
+        </div>
+      </div>
+    `;
+  });
+</script>
+
+</body>
+</html>
